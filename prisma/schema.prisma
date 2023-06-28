@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Admin {
+  id         Int      @id @default(autoincrement())
+  email      String?
+  username   String?
+  department String?
+  jobTitle   String?
+  role       Role
+  reviews    Review[]
+}
+
+enum Role {
+  admin
+  supervisor
+}
+
+model User {
+  id             Int           @id @default(autoincrement())
+  firstName      String?
+  lastName       String?
+  email          String        @unique
+  password       String?
+  photo          String?
+  phone          String?
+  birthDate      String?
+  nationalID     String?
+  skills         String[]
+  experience     Experience[]
+  CV             String?
+  usefulLinks    String[] // in order: [linkedIn, gitHub, codeWars, webPortfolio, other]
+  stage          Stage?
+  submissionDate String?
+  role           String
+  applications   Application[]
+  session        Session?      @relation(fields: [sessionId], references: [id])
+  sessionId      Int? // relation scalar field  (session in the `@relation` attribute above)
+  interview      Interview?
+  reviews        Review[]
+}
+
+enum Stage {
+  pending
+  filtered
+  interviewed
+  accepted
+  rejected
+}
+
+model Experience {
+  id          Int    @id @default(autoincrement())
+  title       String
+  duration    String
+  description String
+  User        User?  @relation(fields: [userId], references: [id])
+  userId      Int?
+}
+
+model Project {
+  id                   Int           @id @default(autoincrement())
+  title                String
+  description          String
+  candidatesNumber     Int
+  requiredProfiles     Profiles[]
+  technicalEnvironment String[]
+  applications         Application[]
+  adminName            String?
+  session              Session?      @relation(fields: [sessionId], references: [id])
+  sessionId            Int? // relation scalar field  (session in the `@relation` attribute above)
+}
+
+enum Profiles {
+  Engineer
+  Masters
+  License
+}
+
+model Application {
+  status    Status
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId Int
+
+  @@id([userId, projectId])
+}
+
+enum Status {
+  pending
+  accepted
+  rejected
+}
+
+model Session {
+  id            Int       @id @default(autoincrement())
+  title         String
+  active        Boolean
+  startDate     DateTime  @default(now())
+  endDate       DateTime?
+  deadlineDate  DateTime?
+  description   String?
+  maxCandidates Int?
+  candidates    User[]
+  projects      Project[]
+}
+
+model Interview {
+  id          Int     @id @default(autoincrement())
+  date        String
+  time        String
+  supervisors String?
+  user        User    @relation(fields: [userId], references: [id])
+  userId      Int     @unique // relation scalar field (used in the `@relation` attribute above)
+}
+
+model Review {
+  note      String
+  score     Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  admin     Admin    @relation(fields: [adminId], references: [id])
+  adminId   Int
+
+  @@id([userId, adminId])
+}

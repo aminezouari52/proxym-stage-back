@@ -1,0 +1,6 @@
+export { CreateUserDto } from './create-user.dto'
+export { LoginUserDto } from './login-user.dto'
+export { UpdateUserDto } from './update-user.dto'
+export { ContactInfoDto, ExperienceDto } from './submit-user.dto'
+export { UploadPhotoDto } from './upload-photo.dto'
+export { UploadCVDto } from './upload-CV.dto'
