@@ -26,4 +26,4 @@ This is the backend section of my end of studies project, wich is a trainee recr
 
    `http://localhost:3000/docs/#/`
 
-![swagger screenshot](./public/swagger.PNG)
+![swagger screenshot](./public/swagger.png)
