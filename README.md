@@ -4,14 +4,26 @@ This is the backend section of my end of studies project, wich is a trainee recr
 
 # Run the server
 
-1. Install dependencies : `yarn`
+1. Install dependencies
+
+   `yarn`
 
 2. Modify the .env file to your needs
 
 3. Run the docker image postgresql-1
 
-![alt text](./public/docker.PNG)
+![postgresql-1 container screenshot](./public/docker.PNG)
 
 4. Open Apache Directory Studio and run the LDAP server
 
-5. Run the server : `yarn start:dev`
+![LDAP server screenshot](./public/LDAP.PNG)
+
+5. Run the server
+
+   `yarn start:dev`
+
+6. Open swagger to see the different Endpoints
+
+   `http://localhost:3000/docs/#/`
+
+![swagger screenshot](./public/LDAP.PNG)
