@@ -1,4 +1,4 @@
-# Welcome
+# Backend
 
 This is the backend section of my end of studies project, wich is a trainee recruitement platform that allows candidates to apply for internships provided by the company "proxym" and allow the hiring team to manage the applications
 
